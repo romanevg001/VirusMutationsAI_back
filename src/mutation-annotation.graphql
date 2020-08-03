@@ -1,0 +1,9 @@
+type MutationAnnotation {
+  file: String!
+}
+
+type Mutation {
+  uploadVCF(
+    file: String!,
+  ):  MutationAnnotation!
+}
