@@ -1,9 +1,9 @@
-import { Controller, Body, Post, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Logger, Post, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
-import { Logger } from '@nestjs/common';
 import { extname } from 'path';
- import { diskStorage } from 'multer';
+import { diskStorage } from 'multer';
+
 
 @Controller('api')
 export class AppController {
@@ -21,8 +21,6 @@ export class AppController {
     }),
   }))
   uploadVCF(@UploadedFile() file) {
-
-    console.log(file.path);
     this.logger.verbose(`User uploaded VCF file`);
     return this.appService.uploadVCF(file.path);
   }
