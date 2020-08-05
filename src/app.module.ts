@@ -4,27 +4,30 @@ import { GqlHttpExceptionFilter } from './shared/gql-http-error.filter';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { ValidationPipe } from './shared/validation.pipe';
-import { GraphQLModule } from '@nestjs/graphql';
+// import { GraphQLModule } from '@nestjs/graphql';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MutationAnnotationModule } from './mutation-annotation/mutation-annotation.module';
+
 
 @Module({
   imports: [
     CacheModule.register(),
+    MutationAnnotationModule,
     // GraphQLModule.forRoot({
     //   installSubscriptionHandlers: true,
     //   typePaths: ['./**/*.graphql'],
     //   context: ({req}) => ({ req }),
+    //   debug: true,
+    //   playground: true,
     // }),
+    
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
     {provide: APP_FILTER, useClass: HttpErrorFilter },
  //   {provide: 'APP_FILTER_GQL', useClass: GqlHttpExceptionFilter },
     {provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
     {provide: APP_PIPE, useClass: ValidationPipe },
-    AppService,
   ],
 })
 export class AppModule {}
